@@ -1,45 +1,40 @@
 # FitMuse — Student Startup Prototype
 
-FitMuse is a responsive frontend prototype for a wardrobe-first personal styling concept, with outfit ideas for college, everyday wear and Indian festive occasions.
+FitMuse is a responsive frontend prototype for a wardrobe-first styling app. The design uses familiar digital-wardrobe patterns—clothing categories, outfit planning, saved looks and style inspiration—while keeping shopping secondary to clothes the user already owns.
 
 ## Run locally
 
-Open `index.html` in a modern browser. No build tools or installation are required.
+Open `index.html` in a modern browser. No build tools are required.
 
 ## Features
 
-- Editorial fashion landing page and responsive mobile navigation
-- Occasion, weather, comfort and style-mood inputs
-- Rule-based outfit suggestions using wardrobe categories
-- Add clothing photos locally and remove wardrobe items
-- Save and remove favourite looks using this browser's local storage
-- Wardrobe-first suggestions that avoid pretending to show live product listings
-- Consistent indentation across HTML, CSS and JavaScript
+- App-like wardrobe dashboard with category filters
+- Clothing-only product and flat-lay imagery stored in `assets/`
+- Occasion, weather, comfort and style-mood controls
+- Rule-based outfit combinations from the starter wardrobe
+- Add your own clothing images and remove wardrobe items
+- Save and remove favourite looks with local browser storage
+- Wardrobe-first gap suggestions; no fake live listings or prices
+- Separate, consistently indented HTML, CSS and JavaScript
 
-## Local images
+## Image assets
 
-The site uses downloaded image files in `assets/`, not image-host URLs in the website markup. The `.github/workflows/vendor-images.yml` workflow downloads the chosen Unsplash images as JPG files and commits them to the repository when the page code or workflow changes.
+The `.github/workflows/vendor-images.yml` workflow downloads clothes-only JPG photographs into the repository. Website markup refers to local `assets/*.jpg` files, not remote image URLs.
 
-Image source pages/CDN IDs:
-- `photo-1617137968427-85924c800a22` — hero image
-- `photo-1488161628813-04466f872be2` — smart-casual inspiration
-- `photo-1515886657613-9f3515b0c78f` — street-style inspiration
-- `photo-1583391733956-3750e0ff4e8b` — festive-style inspiration
+The downloaded images are for clothing inspiration and object photography. No people/model photos are intentionally used.
 
-After the first workflow run completes, these JPGs are checked into the repo and served locally by GitHub Pages. Google Fonts are still loaded from Google Fonts; no website images are hotlinked.
+## Prototype limitations
 
-## Prototype limits
-
-- Outfit suggestions use simple demo rules, not a live AI model.
-- Uploaded clothing images are assigned a category by the user; there is no automatic image recognition.
-- Uploaded previews exist in the current browser session and clear after refresh.
-- The inspiration gallery is illustrative, not a product catalogue.
-- No live weather, shopping inventory, verified prices, checkout or affiliate integration is connected.
+- Recommendations use lightweight demo rules; no live AI model or image recognition is connected.
+- Uploaded clothing images require a manual category and stay in the current browser session.
+- Saved looks use local browser storage when available.
+- Shopping gap suggestions are categories, not live product listings.
+- Google Fonts are loaded remotely; clothing photography is local.
 
 ## GitHub Pages
 
-Keep `index.html`, `style.css` and `script.js` in the repository root. Pages should deploy from the `main` branch, root folder.
+Deploy from the `main` branch, root folder, with `index.html` at the repository root.
 
 ## QA status
 
-JavaScript syntax and duplicate HTML IDs have been checked. Live cross-device testing, browser-console testing, Lighthouse and formal accessibility audits have not yet been completed.
+JavaScript syntax, duplicate HTML IDs and local image references are checked. Browser-based visual QA across device sizes, Lighthouse and a formal accessibility audit still need to be done.

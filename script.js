@@ -10,14 +10,15 @@ const categoryLabels = {
 };
 
 let activeVibe = "minimal";
+let activeFilter = "all";
 let variation = 0;
 let wardrobe = [
-    { id: "tee", name: "White tee", category: "top", color: "Neutral", visual: "visual-tee" },
-    { id: "shirt", name: "Blue shirt", category: "top", color: "Blue", visual: "visual-shirt" },
-    { id: "jeans", name: "Blue jeans", category: "bottom", color: "Denim", visual: "visual-jeans" },
-    { id: "trousers", name: "Black trousers", category: "bottom", color: "Dark", visual: "visual-trousers" },
-    { id: "kurta", name: "Festive kurta", category: "traditional", color: "Green", visual: "visual-kurta" },
-    { id: "sneakers", name: "White sneakers", category: "footwear", color: "Neutral", visual: "visual-sneakers" }
+    { id: "tee", name: "White T-shirt", category: "top", color: "Neutral", photo: "assets/white-tee.jpg" },
+    { id: "shirt", name: "Everyday shirts", category: "top", color: "Mixed neutrals", photo: "assets/wardrobe-rack.jpg" },
+    { id: "jeans", name: "Blue jeans", category: "bottom", color: "Denim", photo: "assets/jeans.jpg" },
+    { id: "trousers", name: "Neutral trousers", category: "bottom", color: "Earth tones", photo: "assets/capsule.jpg" },
+    { id: "kurta", name: "Festive palette", category: "traditional", color: "Colour inspiration", photo: "assets/festive-style.jpg" },
+    { id: "sneakers", name: "Everyday sneakers", category: "footwear", color: "Casual", photo: "assets/sneakers.jpg" }
 ];
 
 let savedLooks = [];
@@ -39,12 +40,40 @@ function escapeHtml(value) {
     })[character]);
 }
 
-function getItems(category) {
-    return wardrobe.filter((item) => item.category === category);
-}
+function renderWardrobe() {
+    const grid = $("#wardrobeGrid");
+    const visibleItems = wardrobe.filter((item) => {
+        return activeFilter === "all" || item.category === activeFilter;
+    });
 
-function selectItem(options, index) {
-    return options.length ? options[index % options.length] : null;
+    $("#wardrobeCount").textContent = `${wardrobe.length} ${wardrobe.length === 1 ? "piece" : "pieces"}`;
+
+    if (!visibleItems.length) {
+        grid.innerHTML = '<p class="empty-wardrobe">No pieces in this category yet. Add a photo of something you own.</p>';
+        return;
+    }
+
+    grid.innerHTML = visibleItems.map((item) => {
+        const image = item.uploadUrl || item.photo;
+        return `<article class="wardrobe-card">
+            <img class="wardrobe-image" src="${escapeHtml(image)}" alt="${escapeHtml(item.name)}">
+            <div class="wardrobe-meta">
+                <strong>${escapeHtml(item.name)}</strong>
+                <small>${escapeHtml(categoryLabels[item.category] || item.category)} · ${escapeHtml(item.color || "Unlabelled")}</small>
+            </div>
+            <button class="remove-item" type="button" data-remove="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
+        </article>`;
+    }).join("");
+
+    $$("[data-remove]", grid).forEach((button) => {
+        button.addEventListener("click", () => {
+            const item = wardrobe.find((entry) => entry.id === button.dataset.remove);
+            if (item?.uploadUrl) URL.revokeObjectURL(item.uploadUrl);
+            wardrobe = wardrobe.filter((entry) => entry.id !== button.dataset.remove);
+            renderWardrobe();
+            buildLook();
+        });
+    });
 }
 
 function buildLook() {
@@ -53,25 +82,25 @@ function buildLook() {
     const priority = $("#comfort").value;
     const notes = $("#notes").value.trim();
     const noteText = notes.toLowerCase();
-
     const isFestive = ["festive", "wedding"].includes(occasion) || activeVibe === "traditional";
-    const categories = isFestive
+    const requiredCategories = isFestive
         ? ["traditional", "bottom", "footwear"]
         : ["top", "bottom", "footwear"];
 
-    const chosenItems = categories.map((category, index) => {
-        let options = getItems(category);
+    const chosenItems = requiredCategories.map((category, index) => {
+        let options = wardrobe.filter((item) => item.category === category);
 
         if (category === "traditional" && options.length === 0) {
-            options = getItems("top");
+            options = wardrobe.filter((item) => item.category === "top");
         }
+
         if (activeVibe === "street") {
             options = [...options].sort((a, b) =>
-                Number(/black|denim/i.test(b.name)) - Number(/black|denim/i.test(a.name))
+                Number(/black|denim|hoodie/i.test(b.name)) - Number(/black|denim|hoodie/i.test(a.name))
             );
         } else if (activeVibe === "classic") {
             options = [...options].sort((a, b) =>
-                Number(/shirt|trouser|white/i.test(b.name)) - Number(/shirt|trouser|white/i.test(a.name))
+                Number(/shirt|trouser|neutral/i.test(b.name)) - Number(/shirt|trouser|neutral/i.test(a.name))
             );
         }
 
@@ -79,11 +108,11 @@ function buildLook() {
             options = options.filter((item) => !/neon|yellow|red/i.test(item.name + item.color));
         }
 
-        return selectItem(options, variation + index);
+        return options.length ? options[(variation + index) % options.length] : null;
     }).filter(Boolean);
 
-    const titleByOccasion = {
-        interview: "The interview edit",
+    const defaultTitles = {
+        interview: "The considered edit",
         festive: "Festive, your way",
         wedding: "Celebration-ready",
         date: "The dinner edit",
@@ -91,7 +120,7 @@ function buildLook() {
         college: "The easy-going edit"
     };
 
-    let title = titleByOccasion[occasion] || "The easy-going edit";
+    let title = defaultTitles[occasion] || "The easy-going edit";
     if (activeVibe === "street") title = "The relaxed street edit";
     if (activeVibe === "classic") title = "The classic edit";
     if (activeVibe === "traditional") title = "A traditional touch";
@@ -99,21 +128,18 @@ function buildLook() {
     $("#resultTitle").textContent = title;
     $("#resultIntro").textContent = chosenItems.length >= 2
         ? `A ${chosenItems.length}-piece combination from your wardrobe for ${$("#occasion").selectedOptions[0].text.toLowerCase()}.`
-        : "Your wardrobe needs a couple more suitable pieces to complete this outfit. Try adding a top, bottom or footwear.";
+        : "Your wardrobe needs a couple more suitable pieces to complete this combination. Add a top, bottom or footwear.";
 
-    $("#lookItems").innerHTML = chosenItems.map((item, index) => {
-        const visualClass = item.visual || "visual-tee";
-        const isUploaded = Boolean(item.image);
-        const photo = isUploaded
-            ? `<img class="wardrobe-photo" src="${item.image}" alt="">`
-            : `<div class="result-photo ${visualClass}"><span>0${index + 1}</span><i></i></div>`;
-
-        return `<article class="result-item">
-            ${photo}
-            <strong>${escapeHtml(item.name)}</strong>
-            <small>${escapeHtml(categoryLabels[item.category] || item.category)} · ${escapeHtml(item.color || "Your item")}</small>
-        </article>`;
-    }).join("");
+    $("#lookItems").innerHTML = chosenItems.length
+        ? chosenItems.map((item, index) => {
+            const image = item.uploadUrl || item.photo;
+            return `<article class="result-item">
+                <img class="result-image" src="${escapeHtml(image)}" alt="${escapeHtml(item.name)}">
+                <strong>${escapeHtml(item.name)}</strong>
+                <small>${escapeHtml(categoryLabels[item.category] || item.category)} · ${escapeHtml(item.color || "Your item")}</small>
+            </article>`;
+        }).join("")
+        : '<p class="loading-note">Add clothing pieces to begin styling.</p>';
 
     let tip = priority === "comfort"
         ? "Choose comfortable fits and footwear you can walk in."
@@ -121,13 +147,14 @@ function buildLook() {
             ? "Use one deliberate colour contrast or an accessory you already own."
             : "Balance comfort with one intentional detail.";
 
-    if (weather === "rainy") tip += " Pick practical shoes with grip.";
+    if (weather === "rainy") tip += " Choose practical shoes with grip.";
     if (weather === "hot") tip += " Prefer breathable fabrics.";
     if (weather === "cool") tip += " Add a light layer if needed.";
     if (noteText.includes("walk")) tip += " Comfort for walking is a priority.";
     if (notes) tip += ` Note considered: ${notes.slice(0, 90)}.`;
 
     $("#stylistTip").textContent = tip;
+
     currentLook = {
         title,
         occasion,
@@ -143,50 +170,18 @@ function buildLook() {
 }
 
 function updateShopping(chosenItems) {
-    const includedCategories = new Set(chosenItems.map((item) => item.category));
-    const missing = ["top", "bottom", "footwear"].filter((category) => !includedCategories.has(category));
-    const grid = $("#productGrid");
+    const included = new Set(chosenItems.map((item) => item.category));
+    const gaps = ["top", "bottom", "footwear"].filter((category) => !included.has(category));
 
-    if (missing.length === 0) {
-        grid.innerHTML = `<span class="shop-icon" aria-hidden="true">✓</span>
-            <div><b>Your outfit basics are covered.</b><p>No need to shop for the basics of this look. Try a piece you already own as an accessory.</p></div>`;
+    if (!gaps.length) {
+        $("#productGrid").innerHTML = `<span class="gap-icon" aria-hidden="true">✓</span>
+            <div><b>Your outfit basics are covered.</b><p>No need to shop for the basics of this look. Try an accessory you already own instead.</p></div>`;
         return;
     }
 
-    grid.innerHTML = `<span class="shop-icon" aria-hidden="true">＋</span>
-        <div><b>Optional gap-filler: ${missing.map((category) => categoryLabels[category]).join(", ")}</b>
-        <p>These categories could complete this combination. This is a suggestion, not a live product listing.</p></div>`;
-}
-
-function renderWardrobe() {
-    const grid = $("#wardrobeGrid");
-
-    grid.innerHTML = wardrobe.map((item) => {
-        const visual = item.image
-            ? `<img class="wardrobe-photo" src="${item.image}" alt="${escapeHtml(item.name)}">`
-            : `<div class="wardrobe-visual ${item.visual || "visual-tee"}"><i></i></div>`;
-
-        return `<article class="wardrobe-card">
-            ${visual}
-            <div class="wardrobe-meta">
-                <strong>${escapeHtml(item.name)}</strong>
-                <small>${escapeHtml(categoryLabels[item.category] || item.category)} · ${escapeHtml(item.color || "Unlabelled")}</small>
-            </div>
-            <button class="remove-item" type="button" data-remove="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
-        </article>`;
-    }).join("");
-
-    $("#wardrobeCount").textContent = `${wardrobe.length} ${wardrobe.length === 1 ? "piece" : "pieces"}`;
-
-    $$("[data-remove]", grid).forEach((button) => {
-        button.addEventListener("click", () => {
-            const item = wardrobe.find((entry) => entry.id === button.dataset.remove);
-            if (item?.image) URL.revokeObjectURL(item.image);
-            wardrobe = wardrobe.filter((entry) => entry.id !== button.dataset.remove);
-            renderWardrobe();
-            buildLook();
-        });
-    });
+    $("#productGrid").innerHTML = `<span class="gap-icon" aria-hidden="true">＋</span>
+        <div><b>Optional gap-filler: ${gaps.map((category) => categoryLabels[category]).join(", ")}</b>
+        <p>These categories could complete your combination. This is a suggestion, not a live product listing.</p></div>`;
 }
 
 function persistSavedLooks() {
@@ -199,9 +194,8 @@ function persistSavedLooks() {
 
 function renderSavedLooks() {
     const host = $("#savedLooks");
-
     host.innerHTML = savedLooks.length
-        ? `<h4>Saved on this device</h4>${savedLooks.map((look, index) => `
+        ? `<h4>Saved looks on this device</h4>${savedLooks.map((look, index) => `
             <div class="saved-look-row">
                 <span><strong>${escapeHtml(look.title)}</strong><small>${escapeHtml((look.names || []).join(", "))}</small></span>
                 <button class="remove-saved" data-saved-remove="${index}" type="button">Remove</button>
@@ -232,9 +226,7 @@ $("#saveLook").addEventListener("click", () => {
     if (!currentLook || currentLook.ids.length < 2) return;
 
     const signature = `${currentLook.ids.join("|")}|${currentLook.occasion}`;
-    const alreadySaved = savedLooks.some((look) => look.signature === signature);
-
-    if (alreadySaved) {
+    if (savedLooks.some((look) => look.signature === signature)) {
         $("#savedMessage").textContent = "This look is already saved.";
     } else {
         savedLooks.unshift({ ...currentLook, signature });
@@ -245,12 +237,11 @@ $("#saveLook").addEventListener("click", () => {
     }
 
     $("#savedMessage").hidden = false;
-    $("#saveLook").textContent = "♥ Look saved";
 });
 
-$$(".chip").forEach((button) => {
+$$("[data-vibe]").forEach((button) => {
     button.addEventListener("click", () => {
-        $$(".chip").forEach((chip) => {
+        $$("[data-vibe]").forEach((chip) => {
             chip.classList.remove("is-active");
             chip.setAttribute("aria-pressed", "false");
         });
@@ -258,6 +249,19 @@ $$(".chip").forEach((button) => {
         button.setAttribute("aria-pressed", "true");
         activeVibe = button.dataset.vibe;
         buildLook();
+    });
+});
+
+$$("[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+        $$("[data-filter]").forEach((chip) => {
+            chip.classList.remove("is-active");
+            chip.setAttribute("aria-pressed", "false");
+        });
+        button.classList.add("is-active");
+        button.setAttribute("aria-pressed", "true");
+        activeFilter = button.dataset.filter;
+        renderWardrobe();
     });
 });
 
@@ -273,7 +277,8 @@ $("#itemUpload").addEventListener("change", (event) => {
                 name: cleanName || "My clothing item",
                 category,
                 color: "Unlabelled",
-                image: URL.createObjectURL(file)
+                uploadUrl: URL.createObjectURL(file),
+                photo: ""
             });
         });
 

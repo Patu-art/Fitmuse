@@ -1,4 +1,4 @@
-name: Download and vendor fashion imagery
+name: Download and vendor clothes-only images
 
 on:
   push:
@@ -14,36 +14,38 @@ permissions:
   contents: write
 
 jobs:
-  download-images:
+  vendor-clothes-images:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Download image files into the repository
+      - name: Download flat-lay and clothing product photographs
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p assets
-          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1617137968427-85924c800a22?fit=crop&w=1800&h=900&q=82&fm=jpg" -o assets/hero.jpg
-          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1488161628813-04466f872be2?fit=crop&w=900&h=1200&q=82&fm=jpg" -o assets/smart-casual.jpg
-          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?fit=crop&w=900&h=1200&q=82&fm=jpg" -o assets/street-style.jpg
-          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?fit=crop&w=900&h=1200&q=82&fm=jpg" -o assets/festive-style.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?fit=crop&w=1600&h=1000&q=84&fm=jpg" -o assets/hero.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?fit=crop&w=800&h=900&q=84&fm=jpg" -o assets/white-tee.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?fit=crop&w=800&h=900&q=84&fm=jpg" -o assets/jeans.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1586264511524-7a785ad3a291?fit=crop&w=800&h=900&q=84&fm=jpg" -o assets/sneakers.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?fit=crop&w=1100&h=900&q=84&fm=jpg" -o assets/capsule.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1695694477689-bef8ba8fc5c6?fit=crop&w=1100&h=900&q=84&fm=jpg" -o assets/wardrobe-rack.jpg
+          curl -fL --retry 3 --retry-delay 2 "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?fit=crop&w=1100&h=900&q=84&fm=jpg" -o assets/festive-style.jpg
           file assets/*.jpg
-          test -s assets/hero.jpg
-          test -s assets/smart-casual.jpg
-          test -s assets/street-style.jpg
-          test -s assets/festive-style.jpg
+          for image in assets/*.jpg; do
+            test -s "$image"
+          done
 
-      - name: Commit downloaded local assets
+      - name: Commit downloaded images to the repository
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/*.jpg
           if git diff --cached --quiet; then
-            echo "No image changes to commit."
+            echo "Image assets are already up to date."
           else
-            git commit -m "Add locally stored fashion imagery"
+            git commit -m "Replace people photos with clothing-only assets"
             git push
           fi
