@@ -120,7 +120,7 @@ img {
     min-height: 440px;
     overflow: hidden;
     border-radius: 9px;
-    background: #3e4339 url("https://images.unsplash.com/photo-1506629905607-d9f9b6b4a4f7?auto=format&fit=crop&w=2000&q=90") center 38% / cover no-repeat;
+    background: #3e4339 url("assets/hero.jpg") center 38% / cover no-repeat;
     color: white;
 }
 .hero-overlay {
