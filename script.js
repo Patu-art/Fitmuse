@@ -106,7 +106,7 @@ function buildLook() {
         const isUploaded = Boolean(item.image);
         const photo = isUploaded
             ? `<img class="wardrobe-photo" src="${item.image}" alt="">`
-            : `<div class="result-photo ${visualClass.replace("visual-", "photo-")}"><span>0${index + 1}</span><i></i></div>`;
+            : `<div class="result-photo ${visualClass}"><span>0${index + 1}</span><i></i></div>`;
 
         return `<article class="result-item">
             ${photo}
