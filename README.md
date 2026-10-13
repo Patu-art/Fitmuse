@@ -1,31 +1,34 @@
 # FitMuse — Student Startup Prototype
 
-FitMuse is a responsive frontend prototype for an AI personal styling concept. It helps people explore outfit combinations using clothes they already own.
+FitMuse is a frontend prototype for a wardrobe-first personal styling concept. It is designed around everyday outfits, college looks and Indian festive occasions.
 
 ## Run locally
+
 Open `index.html` in a modern browser. No build tools or installation are required.
 
-## Included
-- Responsive landing page
-- Occasion, weather, comfort and style mood selectors
-- Rule-based outfit recommendations that use wardrobe categories
-- Occasion, weather, comfort, style mood, and notes influence suggestions
-- Save and remove favourite looks using this browser's local storage
-- Starter wardrobe with add/remove photo previews
-- Sample shopping suggestions (not real listings or affiliate links)
-- Separate HTML, CSS and JavaScript
+## What works in this prototype
 
-## Prototype limitations
-- Outfit suggestions use demo rules, not a real AI model.
-- Weather is selected manually; no live weather integration.
-- Uploaded images are previewed locally and are not sent to a server. Refreshing clears uploaded items; saved favourites persist in this browser when storage is available.
-- Shopping suggestions identify missing clothing categories instead of pretending to show live products. There are no live shopping, verified prices, or affiliate integrations.
+- Responsive landing page with fashion editorial imagery
+- Occasion, weather, comfort and style mood controls
+- Rule-based outfit suggestions based on wardrobe categories
+- Add clothing photos and remove wardrobe items
+- Save and remove favourite looks using this browser's local storage
+- Optional missing-category suggestions instead of fake product listings
+- Separate HTML, CSS and JavaScript files with consistent indentation
+
+## Limitations
+
+- Outfit suggestions use simple demo rules, not an AI model.
+- Uploaded images are assigned a category manually; there is no image recognition.
+- Uploaded previews are held in the browser session and clear on refresh.
+- Inspiration images are external editorial references. An internet connection is needed to load them.
+- Shopping suggestions are categories only. No live products, verified prices, inventory, checkout or affiliate links are connected.
 - This is a prototype, not a production-ready service.
 
-## Accessibility and QA notes
-- Includes a skip link, visible keyboard focus, a mobile navigation toggle, and reduced-motion support.
-- Outfit suggestions use lightweight rules, not a real AI model or image recognition. Uploaded items are assigned a category by the user.
-- Test on a real phone and at 320, 360, 390, 768, 1024, and 1440 px before calling this production-ready. No Lighthouse or formal accessibility audit is claimed.
-
 ## GitHub Pages
-Keep `index.html`, `style.css`, and `script.js` in the repository root. Enable Pages in Settings → Pages and deploy from the `main` branch, root folder.
+
+Keep `index.html`, `style.css` and `script.js` in the repository root. Enable Pages in Settings → Pages and deploy from the `main` branch, root folder.
+
+## QA status
+
+The code has been updated, but cross-device visual QA, browser-console testing, Lighthouse and accessibility audits have not yet been completed. Do not treat this README as a claim that those tests have passed.
