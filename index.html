@@ -1,21 +1,231 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f3ed"><meta name="description" content="FitMuse helps you style outfits from the clothes you already own."><title>FitMuse — Your wardrobe, styled</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f3">
+    <meta name="description" content="FitMuse helps you create outfits from clothes you already own.">
+    <title>FitMuse — Your wardrobe, styled</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<a class="skip-link" href="#main-content">Skip to content</a>
-<a class="skip-link" href="#main-content">Skip to content</a>
-<header class="topbar"><a class="brand" href="#"><span class="brand-mark">f.</span>fitmuse</a><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Menu ☰</button><nav id="mainNav"><a href="#stylist">Stylist</a><a href="#wardrobe">My wardrobe</a><a href="#shopping">Shop the look</a></nav><a class="top-cta" href="#stylist">Style my day ↗</a></header>
-<main id="main-content">
-<section class="hero"><div class="hero-copy"><p class="eyebrow">✦ &nbsp;YOUR PERSONAL STYLE, SIMPLIFIED</p><h1>Good outfits.<br><em>Already in your</em> wardrobe.</h1><p class="hero-description">Your everyday styling companion. Tell us where you're going, add what you own, and find combinations you might not have thought of.</p><div class="hero-actions"><a class="button dark" href="#stylist">Find my outfit ↗</a><a class="text-link" href="#wardrobe">Explore the wardrobe ↓</a></div><div class="hero-note">✦ &nbsp; <span><strong>Wardrobe first.</strong> Shopping only when you need it.</span></div></div>
-<div class="hero-art"><div class="sun-disc"></div><div class="fashion-card card-one"><div class="illustration everyday"><span class="shirt"></span><span class="trouser"></span></div><div class="fashion-label"><small>01 / EVERYDAY</small><strong>Effortless layers</strong></div></div><div class="fashion-card card-two"><div class="illustration festive"><span class="kurta"></span><span class="bottom"></span><span class="dupatta"></span></div><div class="fashion-label"><small>02 / FESTIVE</small><strong>Modern tradition</strong></div></div><div class="floating-note">✧ <span><strong>It's a match</strong><small>Colours work together</small></span></div><div class="art-caption">STYLE IS PERSONAL. START WITH YOU.</div></div></section>
-<section class="quick-stats"><div><b>01</b><span><strong>Use what you own</strong><small>Make your wardrobe work harder</small></span></div><div><b>02</b><span><strong>Dress for the moment</strong><small>From college to celebrations</small></span></div><div><b>03</b><span><strong>Buy with intention</strong><small>Fill a real wardrobe gap</small></span></div></section>
-<section class="section" id="stylist"><div class="section-heading"><div><p class="eyebrow">YOUR DAY, YOUR LOOK</p><h2>What are we dressing for?</h2></div><p>Set the scene. FitMuse will build a look from your wardrobe and style preferences.</p></div><div class="stylist-layout"><form class="panel" id="stylingForm"><label for="occasion">Occasion</label><select id="occasion"><option value="college">College / everyday</option><option value="casual">Casual outing</option><option value="festive">Festival / Garba</option><option value="wedding">Wedding / celebration</option><option value="interview">Interview / formal</option><option value="date">Dinner / date</option></select><div class="form-row"><div><label for="weather">Weather</label><select id="weather"><option value="warm">Warm</option><option value="hot">Hot & humid</option><option value="cool">Cool</option><option value="rainy">Rainy</option></select></div><div><label for="comfort">Priority</label><select id="comfort"><option value="comfort">Comfort first</option><option value="style">Style statement</option><option value="balanced">Balanced</option></select></div></div><label>Style mood</label><div class="chips"><button type="button" class="chip selected" data-vibe="minimal">Minimal</button><button type="button" class="chip" data-vibe="street">Streetwear</button><button type="button" class="chip" data-vibe="classic">Classic</button><button type="button" class="chip" data-vibe="traditional">Traditional</button></div><label for="notes">Anything else? <small>(optional)</small></label><textarea id="notes" rows="2" placeholder="e.g. I need to walk a lot, no bright colours..."></textarea><button class="button dark full" type="submit">Build my outfit ✦</button><p class="footnote">Demo styling logic · no account needed</p></form>
-<div class="panel result-panel" id="resultPanel" aria-live="polite"><div class="result-top"><div><p class="eyebrow">YOUR FITMUSE EDIT</p><h3 id="resultTitle">The easy-going edit</h3></div><span class="match">✦ Made for your day</span></div><p class="result-intro" id="resultIntro">A comfortable combination for a day on campus.</p><div class="look-items" id="lookItems"><div class="look-item"><span class="swatch cream">T</span><strong>Neutral T-shirt</strong><small>Top · breathable base</small></div><div class="look-item"><span class="swatch blue">D</span><strong>Relaxed blue jeans</strong><small>Bottom · easy to move in</small></div><div class="look-item"><span class="swatch white">S</span><strong>White sneakers</strong><small>Footwear · all-day comfort</small></div></div><div class="stylist-tip"><b>✧ &nbsp; Stylist's note</b><p id="stylistTip">Keep the colours simple and add one accessory you already love.</p></div><div class="result-actions"><button class="button outline" id="saveLook" type="button">♡ Save this look</button><button class="button text-button" id="shuffleLook" type="button">Try another ↻</button></div><p class="saved-message" id="savedMessage" hidden>Saved to your favourites on this device.</p><div class="saved-looks" id="savedLooks" aria-live="polite"></div></div></div></section>
-<section class="section wardrobe-section" id="wardrobe"><div class="section-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Your wardrobe, in one place.</h2></div><p>Add a few pieces you own. This prototype keeps uploaded photos in your current browser session.</p></div><div class="wardrobe-toolbar"><span><strong id="wardrobeCount">6 pieces</strong> <small>· starter wardrobe</small></span><div class="upload-controls"><label for="uploadCategory">Item type</label><select id="uploadCategory"><option value="top">Top</option><option value="bottom">Bottom</option><option value="footwear">Footwear</option><option value="accessory">Accessory</option><option value="traditional">Traditional</option></select><div class="upload-controls"><label for="uploadCategory">Item type</label><select id="uploadCategory"><option value="top">Top</option><option value="bottom">Bottom</option><option value="footwear">Footwear</option><option value="accessory">Accessory</option><option value="traditional">Traditional</option></select><label class="button outline upload-button" for="itemUpload">＋ Add your clothes</label><input id="itemUpload" type="file" accept="image/*" multiple hidden></div></div></div><div class="wardrobe-grid" id="wardrobeGrid">
-<article class="wardrobe-item"><div class="item-visual visual-tee"><i></i></div><div class="item-info"><strong>White tee</strong><small>Top · Neutral</small></div><button class="remove-item" data-remove="0" aria-label="Remove White tee">×</button></article>
-<article class="wardrobe-item"><div class="item-visual visual-shirt"><i></i></div><div class="item-info"><strong>Blue shirt</strong><small>Top · Blue</small></div><button class="remove-item" data-remove="1" aria-label="Remove Blue shirt">×</button></article>
-<article class="wardrobe-item"><div class="item-visual visual-jeans"><i></i></div><div class="item-info"><strong>Blue jeans</strong><small>Bottom · Denim</small></div><button class="remove-item" data-remove="2" aria-label="Remove Blue jeans">×</button></article>
-<article class="wardrobe-item"><div class="item-visual visual-black"><i></i></div><div class="item-info"><strong>Black trousers</strong><small>Bottom · Dark</small></div><button class="remove-item" data-remove="3" aria-label="Remove Black trousers">×</button></article>
-<article class="wardrobe-item"><div class="item-visual visual-kurta"><i></i></div><div class="item-info"><strong>Festive kurta</strong><small>Traditional · Festive</small></div><button class="remove-item" data-remove="4" aria-label="Remove Festive kurta">×</button></article>
-<article class="wardrobe-item"><div class="item-visual visual-shoe"><i></i></div><div class="item-info"><strong>White sneakers</strong><small>Footwear · Casual</small></div><button class="remove-item" data-remove="5" aria-label="Remove White sneakers">×</button></article></div><p class="privacy-note">⌁ &nbsp; Photos are previewed locally and are not sent to a server. Refreshing clears uploaded previews.</p></section>
-<section class="shop-section" id="shopping"><div class="section shop-inner"><div class="shop-copy"><p class="eyebrow">A LITTLE SOMETHING EXTRA</p><h2>Complete the look.<br><em>Only if you need to.</em></h2><p>Sometimes one small piece ties an outfit together. Explore sample suggestions when your wardrobe needs a gap-filler — not a whole new wardrobe.</p><span class="demo-pill">DEMO PRODUCT SUGGESTIONS</span></div><div class="product-grid" id="productGrid"><article class="product-card"><div class="product-art bag-art"><span>01</span><i></i></div><div class="product-details"><small>ACCESSORY</small><strong>Everyday crossbody</strong><span>Example price: ₹799</span><a href="#stylist">See if it fits your look ↗</a></div></article><article class="product-card"><div class="product-art watch-art"><span>02</span><i></i></div><div class="product-details"><small>ACCESSORY</small><strong>Minimal everyday watch</strong><span>Example price: ₹999</span><a href="#stylist">See if it fits your look ↗</a></div></article></div></div><p class="disclaimer" id="shoppingDisclaimer">Illustrative demo suggestions only, not live listings or affiliate links.</p></section>
-</main><footer><a class="brand" href="#"><span class="brand-mark">f.</span>fitmuse</a><p>Style more. Waste less. Feel like you.</p><small>Student startup prototype · v0.1</small></footer><script src="script.js"></script></body></html>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+        <a class="brand" href="#" aria-label="FitMuse home">
+            <span class="brand-symbol">✳</span>
+            <span>FitMuse</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Menu</button>
+        <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+            <a href="#stylist">Stylist</a>
+            <a href="#wardrobe">My wardrobe</a>
+            <a href="#looks">Outfit ideas</a>
+        </nav>
+        <a class="header-cta" href="#stylist">Plan an outfit <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-image" role="img" aria-label="Young man in a relaxed black overshirt and white tee in a sunlit outdoor setting">
+                <div class="hero-overlay"></div>
+                <div class="hero-copy">
+                    <p class="eyebrow light">YOUR STYLE. YOUR RULES.</p>
+                    <h1>Same clothes.<br><em>New stories.</em></h1>
+                    <p>Make more of what you own. Find outfits for college days, last-minute plans and every occasion in between.</p>
+                    <a class="button button-coral" href="#stylist">Find my outfit <span aria-hidden="true">→</span></a>
+                </div>
+                <span class="hero-stamp">THE EVERYDAY<br>STYLE EDITION</span>
+            </div>
+            <div class="hero-footnote">
+                <span><b>01</b> Start with your wardrobe</span>
+                <span><b>02</b> Dress for your day</span>
+                <span><b>03</b> Shop only when needed</span>
+            </div>
+        </section>
+
+        <section class="section stylist-section" id="stylist">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">THE DAILY STYLE CHECK-IN</p>
+                    <h2>What’s the plan today?</h2>
+                </div>
+                <p>Tell FitMuse a little about your day. Your suggestions use the pieces in your wardrobe below.</p>
+            </div>
+
+            <div class="stylist-layout">
+                <form class="stylist-form" id="stylingForm">
+                    <div class="field">
+                        <label for="occasion">I’m dressing for</label>
+                        <select id="occasion">
+                            <option value="college">College / everyday</option>
+                            <option value="casual">Casual outing</option>
+                            <option value="festive">Festival / Garba</option>
+                            <option value="wedding">Wedding / celebration</option>
+                            <option value="interview">Interview / formal</option>
+                            <option value="date">Dinner / date</option>
+                        </select>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="weather">Weather</label>
+                            <select id="weather">
+                                <option value="warm">Warm</option>
+                                <option value="hot">Hot & humid</option>
+                                <option value="cool">Cool</option>
+                                <option value="rainy">Rainy</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="comfort">My priority</label>
+                            <select id="comfort">
+                                <option value="comfort">Comfort first</option>
+                                <option value="balanced">A bit of both</option>
+                                <option value="style">Make a statement</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <span class="field-label">Style mood</span>
+                        <div class="style-chips" role="group" aria-label="Choose a style mood">
+                            <button class="chip is-active" type="button" data-vibe="minimal" aria-pressed="true">Minimal</button>
+                            <button class="chip" type="button" data-vibe="street" aria-pressed="false">Streetwear</button>
+                            <button class="chip" type="button" data-vibe="classic" aria-pressed="false">Classic</button>
+                            <button class="chip" type="button" data-vibe="traditional" aria-pressed="false">Traditional</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="notes">Anything to keep in mind <span class="optional">(optional)</span></label>
+                        <textarea id="notes" rows="2" placeholder="e.g. Lots of walking, no bright colours…"></textarea>
+                    </div>
+                    <button class="button button-dark button-wide" type="submit">Build my outfit <span aria-hidden="true">↗</span></button>
+                    <p class="form-note">Prototype preview · no account needed</p>
+                </form>
+
+                <div class="look-result" aria-live="polite">
+                    <div class="result-header">
+                        <div>
+                            <p class="eyebrow">YOUR FITMUSE EDIT</p>
+                            <h3 id="resultTitle">The easy-going edit</h3>
+                        </div>
+                        <span class="result-tag">Made for your day</span>
+                    </div>
+                    <p class="result-description" id="resultIntro">A comfortable combination for a day on campus.</p>
+                    <div class="result-items" id="lookItems">
+                        <article class="result-item">
+                            <div class="result-photo photo-tee"><span>01</span></div>
+                            <strong>White tee</strong>
+                            <small>Top · neutral</small>
+                        </article>
+                        <article class="result-item">
+                            <div class="result-photo photo-jeans"><span>02</span></div>
+                            <strong>Blue jeans</strong>
+                            <small>Bottom · denim</small>
+                        </article>
+                        <article class="result-item">
+                            <div class="result-photo photo-shoes"><span>03</span></div>
+                            <strong>White sneakers</strong>
+                            <small>Footwear · casual</small>
+                        </article>
+                    </div>
+                    <div class="stylist-tip">
+                        <span aria-hidden="true">✳</span>
+                        <div><b>Stylist’s note</b><p id="stylistTip">Keep the colours simple and add one accessory you already love.</p></div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="button button-outline" id="saveLook" type="button">♡ Save this look</button>
+                        <button class="button button-quiet" id="shuffleLook" type="button">Try another ↻</button>
+                    </div>
+                    <p class="saved-message" id="savedMessage" hidden></p>
+                    <div class="saved-looks" id="savedLooks" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section wardrobe-section" id="wardrobe">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR CLOSET, DIGITALLY</p>
+                    <h2>What’s already yours?</h2>
+                </div>
+                <p>Add your own pieces to make the demo feel more personal. Uploaded photos stay in this browser session.</p>
+            </div>
+            <div class="wardrobe-toolbar">
+                <p><strong id="wardrobeCount">6 pieces</strong><span> in your starter wardrobe</span></p>
+                <div class="upload-controls">
+                    <label for="uploadCategory">Item type</label>
+                    <select id="uploadCategory">
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                        <option value="footwear">Footwear</option>
+                        <option value="accessory">Accessory</option>
+                        <option value="traditional">Traditional</option>
+                    </select>
+                    <label class="button button-outline upload-button" for="itemUpload">＋ Add pieces</label>
+                    <input id="itemUpload" type="file" accept="image/*" multiple hidden>
+                </div>
+            </div>
+            <div class="wardrobe-grid" id="wardrobeGrid">
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-tee"><i></i></div><div class="wardrobe-meta"><strong>White tee</strong><small>Top · neutral</small></div></article>
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-shirt"><i></i></div><div class="wardrobe-meta"><strong>Blue shirt</strong><small>Top · blue</small></div></article>
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-jeans"><i></i></div><div class="wardrobe-meta"><strong>Blue jeans</strong><small>Bottom · denim</small></div></article>
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-trousers"><i></i></div><div class="wardrobe-meta"><strong>Black trousers</strong><small>Bottom · dark</small></div></article>
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-kurta"><i></i></div><div class="wardrobe-meta"><strong>Festive kurta</strong><small>Traditional · green</small></div></article>
+                <article class="wardrobe-card"><div class="wardrobe-visual visual-sneakers"><i></i></div><div class="wardrobe-meta"><strong>White sneakers</strong><small>Footwear · casual</small></div></article>
+            </div>
+            <p class="privacy-note">Your uploaded photos are previewed locally. They are not sent to a server.</p>
+        </section>
+
+        <section class="inspiration-section" id="looks">
+            <div class="section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">A LITTLE INSPIRATION</p>
+                        <h2>Looks for real life.</h2>
+                    </div>
+                    <p>Use these as a starting point, not a set of rules. Personal style should still feel like you.</p>
+                </div>
+                <div class="inspiration-grid">
+                    <article class="inspiration-card">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=760&q=85" alt="Smart casual outfit with a dark blazer" loading="lazy">
+                        <div class="inspiration-meta"><span>01 / SMART CASUAL</span><h3>Campus to coffee</h3><p>Clean layers, relaxed fit, easy confidence.</p></div>
+                    </article>
+                    <article class="inspiration-card">
+                        <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=760&q=85" alt="Modern men's everyday outfit inspiration" loading="lazy">
+                        <div class="inspiration-meta"><span>02 / EVERYDAY</span><h3>Off-duty, on point</h3><p>Simple basics with one strong detail.</p></div>
+                    </article>
+                    <article class="inspiration-card">
+                        <img src="https://images.unsplash.com/photo-1614252369475-531eca835eb1?auto=format&fit=crop&w=760&q=85" alt="Festive-inspired traditional menswear" loading="lazy">
+                        <div class="inspiration-meta"><span>03 / CELEBRATION</span><h3>Tradition, refreshed</h3><p>Bring occasionwear into your own style.</p></div>
+                    </article>
+                </div>
+                <p class="image-credit">Editorial inspiration images are illustrative and are not product listings.</p>
+            </div>
+        </section>
+
+        <section class="shop-strip" id="shopping">
+            <div class="shop-copy">
+                <p class="eyebrow light">WARDROBE FIRST. ALWAYS.</p>
+                <h2>Complete the look.<br><em>Only if you need to.</em></h2>
+                <p>FitMuse is designed to help you use what you own before suggesting a missing piece. This prototype shows categories, not live products.</p>
+            </div>
+            <div class="shop-suggestion" id="productGrid">
+                <span class="shop-icon">＋</span>
+                <div><b>Optional gap-fillers</b><p>Your recommendations will appear here when a basic category is missing.</p></div>
+            </div>
+            <p class="disclaimer" id="shoppingDisclaimer">No live listings, prices, stock or affiliate links are connected in this prototype.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="brand" href="#"><span class="brand-symbol">✳</span><span>FitMuse</span></a>
+        <p>Your wardrobe, styled.</p>
+        <small>Student startup prototype · v0.2</small>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
